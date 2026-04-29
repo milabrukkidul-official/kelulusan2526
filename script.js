@@ -1,6 +1,6 @@
 // CONFIGURATION
 const API_URL = 'https://script.google.com/macros/s/AKfycbzCNeQGWR9cWkY_Swn32tt0-i9l5TSMqmaVZmLiAEaH-J9Z16ExXnIqSK5ed_mFzWiJ/exec';
-let RELEASE_DATE = new Date('2026-04-29T23:20:00+07:00'); // Default fallback
+let RELEASE_DATE = new Date('2099-12-31T23:59:59'); // Far future fallback
 
 // DOM ELEMENTS
 const countdownSection = document.getElementById('countdown-section');
@@ -35,21 +35,21 @@ async function fetchData() {
         allStudentsData = result.students;
         
         if (result.settings && result.settings.releaseDate) {
-            // Convert 'YYYY-MM-DD HH:mm:ss' or Date object to JS Date
             RELEASE_DATE = new Date(result.settings.releaseDate);
-            console.log("Release Date updated from API:", RELEASE_DATE);
             
-            // Update the display label
             const options = { day: 'numeric', month: 'long', year: 'numeric', hour: '2-digit', minute: '2-digit' };
             const formattedDate = RELEASE_DATE.toLocaleDateString('id-ID', options);
             releaseInfo.innerHTML = `<i class="far fa-calendar-alt"></i> Buka pada: ${formattedDate} WIB`;
         }
+
+        // Start countdown interval AFTER data is successfully fetched
+        startCountdown();
+
     } catch (error) {
         console.error("Error fetching data:", error);
         loginError.textContent = "Gagal memuat data. Periksa koneksi internet atau URL API.";
     } finally {
         loader.classList.add('hidden');
-        updateCountdown(); // Run immediately after fetch
     }
 }
 
@@ -186,13 +186,14 @@ function updateCountdown() {
 
     for (const [id, value] of Object.entries(elements)) {
         const el = document.getElementById(id);
+        if (!el) continue;
+        
         const newVal = value.toString().padStart(2, '0');
         
         if (el.textContent !== newVal) {
             el.textContent = newVal;
-            // Trigger pulse animation
             el.classList.remove('pulse');
-            void el.offsetWidth; // Trigger reflow
+            void el.offsetWidth;
             el.classList.add('pulse');
         }
     }
@@ -200,11 +201,14 @@ function updateCountdown() {
     return false;
 }
 
-const countdownInterval = setInterval(() => {
-    const isFinished = updateCountdown();
-    if (isFinished) {
-        clearInterval(countdownInterval);
-    }
-}, 1000);
+function startCountdown() {
+    updateCountdown();
+    const countdownInterval = setInterval(() => {
+        const isFinished = updateCountdown();
+        if (isFinished) {
+            clearInterval(countdownInterval);
+        }
+    }, 1000);
+}
 
 fetchData();
