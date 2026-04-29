@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pengumuman Kelulusan Siswa</title>
+    <link rel="stylesheet" href="styles.css">
+    <!-- Google Fonts: Outfit for a modern, premium feel -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- Canvas Confetti Library -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+</head>
+<body>
+    <!-- Background Decoration -->
+    <div class="bg-decoration"></div>
+
+    <!-- Header / Logo -->
+    <header class="main-header">
+        <div class="logo-container">
+            <!-- Replace 'logo.png' with your actual logo URL -->
+            <img src="https://via.placeholder.com/500x300?text=LOGO+SEKOLAH" alt="Logo Sekolah" id="school-logo">
+        </div>
+    </header>
+
+    <main class="container">
+        <!-- Countdown Section (Visible before release time) -->
+        <section id="countdown-section" class="card fade-in hidden">
+            <div class="card-header">
+                <h2>Penghitungan Mundur</h2>
+                <p>Hasil kelulusan akan dapat diakses dalam:</p>
+            </div>
+            <div class="countdown-timer">
+                <div class="timer-item">
+                    <span id="days">00</span>
+                    <label>Hari</label>
+                </div>
+                <div class="timer-item">
+                    <span id="hours">00</span>
+                    <label>Jam</label>
+                </div>
+                <div class="timer-item">
+                    <span id="minutes">00</span>
+                    <label>Menit</label>
+                </div>
+                <div class="timer-item">
+                    <span id="seconds">00</span>
+                    <label>Detik</label>
+                </div>
+            </div>
+            <div class="release-info" id="release-info">
+                <i class="far fa-calendar-alt"></i> Memuat jadwal...
+            </div>
+        </section>
+
+        <!-- Login Section -->
+        <section id="login-section" class="card fade-in hidden">
+            <div class="card-header">
+                <h2>Cek Status Kelulusan</h2>
+                <p>Silakan masukkan NISN Anda untuk melihat hasil kelulusan.</p>
+            </div>
+            <div class="input-group">
+                <input type="text" id="nisn-input" placeholder="Masukkan NISN Anda..." autocomplete="off">
+                <button id="cek-button" class="btn btn-primary">
+                    <i class="fas fa-search"></i> CEK KELULUSAN
+                </button>
+            </div>
+            <div id="login-error" class="error-msg"></div>
+        </section>
+
+        <!-- Result Section (Hidden by default) -->
+        <section id="result-section" class="card result-card hidden">
+            <div class="result-header">
+                <div class="student-photo-container">
+                    <img src="" alt="Foto Siswa" id="student-photo">
+                </div>
+                <h1 id="student-name">Nama Siswa</h1>
+                <p id="student-class" class="badge">Kelas</p>
+            </div>
+
+            <div class="result-body">
+                <div class="status-container" id="status-container">
+                    <span id="graduation-status">STATUS</span>
+                </div>
+
+                <div class="grades-table-container">
+                    <table class="grades-table">
+                        <thead>
+                            <tr>
+                                <th>Mata Pelajaran</th>
+                                <th>Nilai</th>
+                            </tr>
+                        </thead>
+                        <tbody id="grades-body">
+                            <!-- Dynamic Content -->
+                        </tbody>
+                        <tfoot>
+                            <tr class="row-total">
+                                <td>TOTAL NILAI</td>
+                                <td id="total-score">0</td>
+                            </tr>
+                            <tr class="row-average">
+                                <td>RATA-RATA</td>
+                                <td id="average-score">0</td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+
+                <div class="action-buttons">
+                    <button id="download-btn" class="btn btn-success">
+                        <i class="fas fa-download"></i> UNDUH FILE KELULUSAN
+                    </button>
+                    <button id="back-btn" class="btn btn-outline">
+                        <i class="fas fa-arrow-left"></i> KEMBALI
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Loading Spinner -->
+        <div id="loader" class="loader hidden">
+            <div class="spinner"></div>
+            <p>Memproses data...</p>
+        </div>
+    </main>
+
+    <footer class="main-footer">
+        <p>&copy; 2024 Sistem Pengumuman Kelulusan Digital</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
