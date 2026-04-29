@@ -1,4 +1,4 @@
-// CONFIGURATION
+// CONFIGURATION API URL APPSCRIPT
 const API_URL = 'https://script.google.com/macros/s/AKfycbzCNeQGWR9cWkY_Swn32tt0-i9l5TSMqmaVZmLiAEaH-J9Z16ExXnIqSK5ed_mFzWiJ/exec';
 let RELEASE_DATE = new Date('2099-12-31T23:59:59'); // Far future fallback
 
